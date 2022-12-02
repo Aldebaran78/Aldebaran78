@@ -1,4 +1,7 @@
 const prompt = require('prompt-sync')({sigint: true});
+const Bill = require('./Bill');
+
+const fakeExtractNumber = numberExtraction();
 
 ///////////////////////////////////////////////////
 ////////////////// Check Input ////////////////////
@@ -72,7 +75,31 @@ function showCompletedTicket (ticketArr) {
     return ticketArr.reduce((res, ticket, index) => {
         return res += `Ticket #${index+1} : ${ticket.numbers} numbers played on the ${ticket.city} wheel with ${ticket.type}\n`
     }, '');
-}
+};
+
+//Center a word in a space by adding spaces before and after
+// - lineWidth = number, how many characters is the space
+// - word = string, the word to write
+// # return = string
+function centerWord (lineWidth, word) {
+    const wordLength = word.length;
+    const space = (lineWidth - wordLength) /2;
+    return word.padStart(wordLength+space, ' ').padEnd(lineWidth, ' ');
+};
+
+//print the extraction table for each wheel
+// # return = string
+function printFakeExtraction () {
+    let result = `\n               FAKE EXTRACTIONS\n`;
+
+    for (let i=0; i<Bill.cities.length-1; i++) {
+        result += `+${separator(12)}+${separator(30)}+${separator(20)}+\n`;
+        result += `| ${centerWord(10, Bill.cities[i])} | ${centerWord(28, fakeExtractNumber[i].join(' - '))} |\n`
+    }
+    result += `+${separator(12)}+${separator(30)}+${separator(20)}+\n`;
+
+    return result
+};
 
 ///////////////////////////////////////////////////
 //////////////// Menage choices ///////////////////
@@ -83,7 +110,7 @@ function showCompletedTicket (ticketArr) {
 // # return = array
 function arrayNumber (min, max) {
     return [...Array(max-min+1)].map(_ => `${min++}`)
-}
+};
 
 //manages the choice of wheels: if a city is chosen, it adds it to the selected array and deletes it from cities 
 //so it will no longer be presented in the next cycle, if Tutte is chosen, it returns the result directly, 
@@ -133,7 +160,30 @@ function menageType (input, numbersPlayed, whellOrType, num, selected, cities, t
     } else if (input === 'n' && selected.length === 0) return cb(numbersPlayed, whellOrType, num, selected, cities, type);
 
     else return selected
-}
+};
+
+///////////////////////////////////////////////////
+//////////////// Fake Extraction //////////////////
+///////////////////////////////////////////////////
+
+//generate random numbers between 1 and 90 that are never the same
+// - number = number, how many numbers you want to generate
+// # return = an array of numbers
+function genNumber () {
+    const result = [];
+
+    while (result.length < 5) {
+        const rndNum = Math.floor(Math.random() * 90) + 1;
+        if (!result.includes(rndNum)) result.push(rndNum)
+    };
+    return result;
+};
+
+//creates an array of 10 arrays with all numbers drawn for each wheel
+// # return = array of array
+function numberExtraction () {
+    return [...Array(Bill.cities.length - 1)].map(_ => genNumber(5))
+};
 
 module.exports = {  inputAndCheck,
                     check,
@@ -145,4 +195,8 @@ module.exports = {  inputAndCheck,
                     separator,
                     showCompletedTicket,
                     arrayNumber,
+                    genNumber,
+                    numberExtraction,
+                    printFakeExtraction,
+                    centerWord,
                  }

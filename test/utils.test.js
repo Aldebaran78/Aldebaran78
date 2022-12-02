@@ -3,12 +3,12 @@ const Bill = require('../Bill')
 
 describe('Check Input', () => {
 
-    it('inputAndCheck', () => {
+    /* it('inputAndCheck', () => {
         //type 1
         expect(utils.inputAndCheck(['1','2'],'>')).toBe('1');
         //type n
         expect(utils.inputAndCheck(['1','2'],'>')).toBe('1');
-    })
+    }) */
 
     it('check', () => {
         expect(utils.check(['1','3','x'], 'x')).toBe('x');
@@ -41,6 +41,34 @@ describe('Print', () => {
         const ticket = [new Bill.Bill(5,['Bari','Milano'],['Ambetto', 'Terno']), new Bill.Bill(10,['Firenze'],['Ambetto', 'Terno', 'Cinquina'])]
         expect(utils.showCompletedTicket(ticket)).toBe('Ticket #1 : 5 numbers played on the Bari,Milano wheel with Ambetto,Terno\nTicket #2 : 10 numbers played on the Firenze wheel with Ambetto,Terno,Cinquina\n');
     })
+
+    it('centerWord', () => {
+        expect(utils.centerWord(20, 'collisione')).toBe('     collisione     ');
+        expect(utils.centerWord(20, 'collision')).toBe('     collision      ');
+    })
+
+    it('printFakeExtraction', () => {
+        const table = utils.printFakeExtraction();
+        const tableArr = table.split('\n');
+
+        expect(table).toHaveLength(1230);
+        expect(tableArr).toHaveLength(24);
+        expect(tableArr[0]).toBe('');
+        expect(tableArr[1]).toBe('               FAKE EXTRACTIONS');
+        expect(tableArr[23]).toBe('');
+
+        tableArr.forEach((el, index) => {
+            if (index % 2 === 0 && index !== 0) expect(el).toBe('+============+==============================+====================+');
+            if (index % 2 !== 0 && index > 1 && index < 22) {
+                expect(el[0]).toBe('|');
+                expect(el[13]).toBe('|');
+                expect(el[44]).toBe('|');
+                const citiesName = el.split('|')[1].trim();
+                expect(Bill.cities.includes(citiesName)).toBeTruthy()
+            }
+        })
+
+    })
 });
 
 describe('Menage choice', () => {
@@ -70,3 +98,38 @@ describe('Menage choice', () => {
 
     })
 });
+
+describe('Fake Extraction', () => {
+
+    it('genNumber', () => {
+        const number = utils.genNumber();
+        const numberSet = [...new Set(number)];
+
+        expect(number).toHaveLength(5);
+        expect(numberSet).toHaveLength(5);
+
+        number.forEach(el => {
+            expect(typeof el).toBe('number');
+            expect(el > 0 && el < 91).toBeTruthy();
+        })
+    })
+
+    it('numberExtraction', () => {
+        const extraction = utils.numberExtraction();
+
+        expect(extraction).toHaveLength(10);
+
+        extraction.forEach(wheelNumber => {
+            expect(wheelNumber).toHaveLength(5);
+            expect(Array.isArray(wheelNumber)).toBeTruthy();
+
+            const wheelSet = [...new Set(wheelNumber)];
+            expect(wheelSet).toHaveLength(5);
+
+            wheelNumber.forEach(num => {
+                expect(typeof num).toBe('number');
+                expect(num > 0 && num < 91).toBeTruthy();
+            })
+        })
+    })
+})
