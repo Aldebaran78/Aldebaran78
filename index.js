@@ -33,6 +33,7 @@ function fillTickets (ticketNumber) {
     };
     console.clear();
     tickets.forEach((ticket, index) => console.log(ticket.print(index+1)));
+    console.log(utils.printFakeExtraction())
 };
 
 //ask for user input from 1 to 10

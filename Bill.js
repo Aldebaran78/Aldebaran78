@@ -74,11 +74,12 @@ class Bill {
     };
 
     //private function to generate random numbers between 1 and 90 that are never the same
+    // - number = number, how many numbers you want to generate
     // # return = an array of numbers
-    #genNumber () {
+    #genNumber (number) {
         const result = [];
 
-        while (result.length < this._numbers) {
+        while (result.length < number) {
             const rndNum = Math.floor(Math.random() * 90) + 1;
             if (!result.includes(rndNum)) result.push(rndNum)
         };
@@ -111,7 +112,7 @@ class Bill {
         const title = 'LOTTO GAME TICKET #' + ticketNumber;
         const wheel = this._city.join('  ');
         const type = this._type.join('  ');
-        const rndNumber = this.#genNumber().join(' - ');
+        const rndNumber = this.#genNumber(this._numbers).join(' - ');
         const lineWidth = 60;
 
         return [title, wheel,type, rndNumber].map(el => {
