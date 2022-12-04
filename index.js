@@ -1,8 +1,24 @@
+const prompt = require('prompt-sync')({sigint: true});
 const Bill = require('./Bill');
 const utils = require('./utils');
 
 const tickets = [];       //array with all Bill instances created
 howManyTicket();
+
+//recursively requests input using a prompt until a correct one is entered
+// @ use the utils.check() function to verify the input
+// - possibleInput = an array with all inputs accepted
+// - inputString = string that is displayed in the prompt
+// # return = correctly input
+function inputAndCheck (possibleInput, inputString) {
+    const input = utils.check(possibleInput, prompt(inputString));
+
+    if (input || input === 0) return input;
+    else {
+        console.log('Input error, try again !\n');
+        return inputAndCheck(possibleInput, inputString)
+    }
+};
 
 //input request to define how many tickets want to play
 // @ uses fllTickets function to which it passes the result of the choice
@@ -10,7 +26,7 @@ howManyTicket();
 function howManyTicket () {
     console.clear();
     console.log('\n                      Lotto Game!\n\nHow many tickets do you want to generate? ( from 1 to 5 )\n');
-    const ticketNumber = utils.inputAndCheck(utils.arrayNumber(1,5), '> ');
+    const ticketNumber = inputAndCheck(utils.arrayNumber(1,5), '> ');
     fillTickets(ticketNumber);
 };
 
@@ -45,7 +61,7 @@ function fillTickets (ticketNumber) {
 // # return number
 function chooseNumber () {
     console.log('How many numbers do you want to play? ( form 1 to 10 )\n');
-    return Number(utils.inputAndCheck(utils.arrayNumber(1,10), '> ')); 
+    return Number(inputAndCheck(utils.arrayNumber(1,10), '> ')); 
 };
 
 //manages the choice of wheels or types of bet
@@ -79,7 +95,7 @@ function choose (numbersPlayed, whellOrType, num, selected = [], cities = [...Bi
 
     accepted.push('n');
     console.log(list, '\nn) Next\n\n');
-    const input = utils.inputAndCheck(accepted, '> ');
+    const input = inputAndCheck(accepted, '> ');
 
     if (whellOrType === 'whell') return utils.menageWheel(input, numbersPlayed, whellOrType, num, selected, cities, choose);
     else if (whellOrType === 'type') return utils.menageType(input, numbersPlayed, whellOrType, num, selected, cities, type, choose);

@@ -1,4 +1,3 @@
-const prompt = require('prompt-sync')({sigint: true});
 const Bill = require('./Bill');
 
 //array with 10 arrays, each with 5 random numbers for fake extraction
@@ -8,20 +7,7 @@ const fakeExtractNumber = numberExtraction();
 ////////////////// Check Input ////////////////////
 ///////////////////////////////////////////////////
 
-//recursively requests input using a prompt until a correct one is entered
-// @ use the check() function to verify the input
-// - possibleInput = an array with all inputs accepted
-// - inputString = string that is displayed in the prompt
-// # return = correctly input
-function inputAndCheck (possibleInput, inputString) {
-    const input = check(possibleInput, prompt(inputString));
 
-    if (input || input === 0) return input;
-    else {
-        console.log('Input error, try again !\n');
-        return inputAndCheck(possibleInput, inputString)
-    }
-};
 
 //check if an element is included in an array
 // - possibleInput = an array with all inputs accepted
@@ -247,7 +233,6 @@ function allWinToString (allWin) {
 };
 
 module.exports = {  fakeExtractNumber,
-                    inputAndCheck,
                     check,
                     printList,
                     printInline,

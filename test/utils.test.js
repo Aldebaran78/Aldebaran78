@@ -3,13 +3,6 @@ const Bill = require('../Bill')
 
 describe('Check Input', () => {
 
-    /* it('inputAndCheck', () => {
-        //type 1
-        expect(utils.inputAndCheck(['1','2'],'>')).toBe('1');
-        //type n
-        expect(utils.inputAndCheck(['1','2'],'>')).toBe('1');
-    }) */
-
     it('check', () => {
         expect(utils.check(['1','3','x'], 'x')).toBe('x');
         expect(utils.check(['1','3','x'], '1')).toBe('1');
