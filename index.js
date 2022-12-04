@@ -31,9 +31,14 @@ function fillTickets (ticketNumber) {
         const type = choose(number, 'type', i+1);
         tickets.push(new Bill.Bill(number, wheel, type))
     };
+
     console.clear();
-    tickets.forEach((ticket, index) => console.log(ticket.print(index+1)));
-    console.log(utils.printFakeExtraction())
+    let allWin = [];
+    tickets.forEach((ticket, index) => {
+        console.log(ticket.print(index+1));
+        allWin.push(utils.checkWin(ticket.generateNumber,ticket.city, ticket.type).concat(index+1));
+    });
+    console.log(utils.printFakeExtraction(allWin))
 };
 
 //ask for user input from 1 to 10
@@ -68,7 +73,7 @@ function choose (numbersPlayed, whellOrType, num, selected = [], cities = [...Bi
     } else if (whellOrType === 'type') {
         if (numbersPlayed === 1) return ['Estratto'];
         console.log('What type of bet do you want to place?\n');
-        if (numbersPlayed > 1 && numbersPlayed < 5 && selected.length === 0) type.length = numbersPlayed + 1;
+        if (numbersPlayed > 1 && numbersPlayed < 5 && selected.length === 0) type.length = numbersPlayed;
         [accepted, list] = utils.printList(type);
     };
 
