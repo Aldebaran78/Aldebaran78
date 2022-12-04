@@ -16,6 +16,7 @@ But... let's start!
 4. [Type of bet](#type)
 5. [More Tickets](#more)
 6. [Print tickets](#print)
+7. [Fake Extraction](#fake)
 ---
 
 Choose how many ticket to play from 1 to 5 <a name="nTicket"></a>
@@ -85,11 +86,10 @@ Choose the type of bet: <a name="type"></a>
 What type of bet do you want to place?
 
 1) Estratto
-2) Ambetto
-3) Ambo
-4) Terno
-5) Quaterna
-6) Cinquina
+2) Ambo
+3) Terno
+4) Quaterna
+5) Cinquina
  
 n) Next
 ```
@@ -102,9 +102,8 @@ Terno <> Cinquina
 What type of bet do you want to place?
 
 1) Estratto
-2) Ambetto
-3) Ambo
-4) Quaterna
+2) Ambo
+3) Quaterna
  
 n) Next
 ```
@@ -147,3 +146,33 @@ Once generated, they will all be printed on the monitor, an example below <a nam
 |      17 - 6 - 13 - 70 - 42 - 37 - 64 - 35 - 22 - 44      |
 +==========================================================+
 ```
+A simulated extraction of all wheels will also be generated. <a name="fake"></a>
+
+The table will indicate the winnings of your tickets: 
+
+#1, #2, etc.. is the number of your ticket and then the type of winnings made
+```
+                FAKE EXTRACTIONS                          TICKET WIN                    
++==========+==========================+==================================================+
+|   Bari   |  54 - 75 - 69 - 82 - 15  |                    #2 Estratto                   |
++==========+==========================+==================================================+
+| Cagliari |  15 - 82 - 43 - 81 - 57  |  #1 Estratto #2 Estratto-Ambo-Terno #3 Estratto  |
++==========+==========================+==================================================+
+| Firenze  |  46 - 3 - 89 - 37 - 90   |                    #3 Estratto                   |
++==========+==========================+==================================================+
+|  Genova  |  67 - 36 - 43 - 64 - 69  |                    #3 Estratto                   |
++==========+==========================+==================================================+
+|  Milano  |  17 - 83 - 18 - 35 - 76  |              #3 Estratto-Ambo-Terno              |
++==========+==========================+==================================================+
+|  Napoli  |  84 - 27 - 36 - 59 - 4   |           #1 Estratto-Ambo #3 Estratto           |
++==========+==========================+==================================================+
+| Palermo  |  50 - 71 - 28 - 58 - 22  |                    #1 Estratto                   |
++==========+==========================+==================================================+
+|   Roma   |  58 - 65 - 42 - 71 - 69  |              #1 Estratto #3 Estratto             |
++==========+==========================+==================================================+
+|  Torino  |  90 - 41 - 34 - 11 - 59  |                                                  |
++==========+==========================+==================================================+
+| Venezia  |   2 - 48 - 6 - 34 - 43   |           #2 Estratto #3 Estratto-Ambo           |
++==========+==========================+==================================================+
+```
+Good fun ! 😃

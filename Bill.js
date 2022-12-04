@@ -1,19 +1,25 @@
 //All wheels
 const cities = ['Bari', 'Cagliari', 'Firenze', 'Genova', 'Milano', 'Napoli', 'Palermo', 'Roma', 'Torino', 'Venezia', 'Tutte'];
 //All type of bet
-const types = ['Estratto','Ambetto', 'Ambo', 'Terno', 'Quaterna', 'Cinquina'];
+const types = ['Estratto', 'Ambo', 'Terno', 'Quaterna', 'Cinquina'];
 
 //Bill Class
 class Bill {
     _numbers;
     _city;
     _type;
+    _generateNumber;
 
     constructor (numbers, city, type) {
         this.numbers = numbers;
         this.city = city;
         this.type = type;
+
+        this._generateNumber = this.#genNumber();
     };
+
+    //
+    get generateNumber () { return this._generateNumber };
 
     //getter and setter for numbers
     //verify that a number between 1 and 10 is entered, otherwise an exception is raised
@@ -48,7 +54,7 @@ class Bill {
         let message = '';
         const typesCopy = [...types];
 
-        if (this._numbers < 5) { removed = typesCopy.splice((this._numbers !== 1) ? this._numbers+1 : this._numbers) };
+        if (this._numbers < 5) { removed = typesCopy.splice(this._numbers) };
 
         if (this.#checkInputArray(arr)) this._type = arr.filter(type => {
             if (removed.includes(type)) message = `: you cannot choose ${removed} because you are playing only ${this._numbers} numbers`;
@@ -76,10 +82,10 @@ class Bill {
     //private function to generate random numbers between 1 and 90 that are never the same
     // - number = number, how many numbers you want to generate
     // # return = an array of numbers
-    #genNumber (number) {
+    #genNumber () {
         const result = [];
 
-        while (result.length < number) {
+        while (result.length < this._numbers) {
             const rndNum = Math.floor(Math.random() * 90) + 1;
             if (!result.includes(rndNum)) result.push(rndNum)
         };
@@ -112,16 +118,14 @@ class Bill {
         const title = 'LOTTO GAME TICKET #' + ticketNumber;
         const wheel = this._city.join('  ');
         const type = this._type.join('  ');
-        const rndNumber = this.#genNumber(this._numbers).join(' - ');
+        const rndNumber = this._generateNumber.join(' - ');
         const lineWidth = 60;
 
         return [title, wheel,type, rndNumber].map(el => {
             return `${this.#lineGenerator(lineWidth,'=')}\n|${this.#centerWord(lineWidth-2, el)}|`;
 
         }).join('\n') + '\n' + this.#lineGenerator(lineWidth,'=') + '\n\n'
-        
     };
-
 };
  
 module.exports = { Bill, cities, types }

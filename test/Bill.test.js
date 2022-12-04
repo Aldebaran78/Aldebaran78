@@ -14,6 +14,15 @@ describe('Bill Class', () => {
         it('get city', () => {
             expect(ticket.city).toEqual(['Bari'])
         })
+        it('get generateNumber', () => {
+            expect(Array.isArray(ticket.generateNumber)).toBeTruthy();
+            expect(ticket.generateNumber).toHaveLength(8);
+            ticket.generateNumber.forEach(el => {
+                expect(typeof el).toBe('number');
+                expect(el).toBeGreaterThan(0);
+                expect(el).toBeLessThan(91);
+            })
+        })
 
         it('set numbers > 10', () => {
             try{
@@ -48,7 +57,7 @@ describe('Bill Class', () => {
             try{
                 ticket6 = new Bill.Bill(5,['Bari'],['Ambos', 'Quaterna']);
             } catch (err) {
-                expect(err.message).toBe('Ambos,Quaterna is a invalid type, Bill instance not created\nAccepted parameters : Estratto-Ambetto-Ambo-Terno-Quaterna-Cinquina');
+                expect(err.message).toBe('Ambos,Quaterna is a invalid type, Bill instance not created\nAccepted parameters : Estratto-Ambo-Terno-Quaterna-Cinquina');
             }
         })
 
@@ -64,7 +73,7 @@ describe('Bill Class', () => {
             try{
                 ticket8 = new Bill.Bill(3,['Bari'],['Quaterna', 'Cinquina']);
             } catch (err) {
-                expect(err.message).toBe('Quaterna,Cinquina is a invalid type: you cannot choose Quaterna,Cinquina because you are playing only 3 numbers, Bill instance not created\nAccepted parameters : Estratto-Ambetto-Ambo-Terno')
+                expect(err.message).toBe('Quaterna,Cinquina is a invalid type: you cannot choose Quaterna,Cinquina because you are playing only 3 numbers, Bill instance not created\nAccepted parameters : Estratto-Ambo-Terno')
             }
         })
 
@@ -72,7 +81,7 @@ describe('Bill Class', () => {
             try{
                 ticket9 = new Bill.Bill(1,['Bari'],['Ambo']);
             } catch (err) {
-                expect(err.message).toBe('Ambo is a invalid type: you cannot choose Ambetto,Ambo,Terno,Quaterna,Cinquina because you are playing only 1 numbers, Bill instance not created\nAccepted parameters : Estratto')
+                expect(err.message).toBe('Ambo is a invalid type: you cannot choose Ambo,Terno,Quaterna,Cinquina because you are playing only 1 numbers, Bill instance not created\nAccepted parameters : Estratto')
             }
         })
     })
@@ -82,7 +91,6 @@ describe('Bill Class', () => {
             ticket10 = new Bill.Bill(3,['Bari'],['Ambo']);
             const printBefore = ticket10.print(6).slice(0,451);
             const printAfter = ticket10.print(6).slice(464);
-            console.log(printAfter)
             expect(printBefore).toBe(`+==========================================================+
 |                   LOTTO GAME TICKET #6                   |
 +==========================================================+

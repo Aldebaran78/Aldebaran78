@@ -1,6 +1,7 @@
 const prompt = require('prompt-sync')({sigint: true});
 const Bill = require('./Bill');
 
+//array with 10 arrays, each with 5 random numbers for fake extraction
 const fakeExtractNumber = numberExtraction();
 
 ///////////////////////////////////////////////////
@@ -88,15 +89,17 @@ function centerWord (lineWidth, word) {
 };
 
 //print the extraction table for each wheel
+// @ use the centerWord(), separator() and allWinToString() to center the words in the cell, make the rows of the table and print the winnings
+// - allWin = array of array with all winnings (Example: [ [ 'Ambo', 'Genova' ], [ 'Ambo', 'Napoli' ] ])
 // # return = string
-function printFakeExtraction () {
-    let result = `\n               FAKE EXTRACTIONS\n`;
+function printFakeExtraction (allWin) {
+    let result = `\n            ${centerWord(26, 'FAKE EXTRACTIONS')} ${centerWord(50, 'TICKET WIN')}\n`;
 
     for (let i=0; i<Bill.cities.length-1; i++) {
-        result += `+${separator(12)}+${separator(30)}+${separator(20)}+\n`;
-        result += `| ${centerWord(10, Bill.cities[i])} | ${centerWord(28, fakeExtractNumber[i].join(' - '))} |\n`
+        result += `+${separator(10)}+${separator(26)}+${separator(50)}+\n`;
+        result += `| ${centerWord(8, Bill.cities[i])} | ${centerWord(24, fakeExtractNumber[i].join(' - '))} | ${centerWord(48, allWinToString(allWin)[i])} |\n`
     }
-    result += `+${separator(12)}+${separator(30)}+${separator(20)}+\n`;
+    result += `+${separator(10)}+${separator(26)}+${separator(50)}+\n`;
 
     return result
 };
@@ -152,7 +155,7 @@ function menageWheel (input, numbersPlayed, whellOrType, num, selected, cities, 
 // - cb = function that is called to carry out the recursion in case of choice of several wheels
 // # return = selected array or cb
 function menageType (input, numbersPlayed, whellOrType, num, selected, cities, type, cb) {
-    if (input > 0 && input < 7) {
+    if (input > 0 && input < 6) {
         selected.push(type[input-1]);
         type = type.filter((_, index) => index !== input-1);
         return cb(numbersPlayed, whellOrType, num, selected, cities, type);
@@ -185,7 +188,66 @@ function numberExtraction () {
     return [...Array(Bill.cities.length - 1)].map(_ => genNumber(5))
 };
 
-module.exports = {  inputAndCheck,
+//check if a ticket has won compared to fake extraction
+// - wheelNumber = array, the played numbers of the ticket
+// - wheels = array, the played reels of the ticket
+// - type = array, the type of play of the ticket
+// # return = array of array, if there are wins, it returns an array of 2 elements:
+// the type and the index of the wheel, example: [ ['Estratto', 4], ['Ambo', 6] ]
+function checkWin (wheelNumber, wheels, type, extractions = fakeExtractNumber) {
+    let result = [];
+    const indexType = type.map(el => Bill.types.indexOf(el));
+
+    if (wheels[0] !== 'Tutte') {
+        const indexWheel = wheels.map(el => Bill.cities.indexOf(el));
+
+        indexWheel.forEach(el => {
+            const numberWin = wheelNumber
+                                .map(num => extractions[el].includes(num))
+                                .reduce((acc, elem) => (elem) ? ++acc : acc, 0);
+
+            indexType.forEach(ele => {
+                if (numberWin >= ele+1) result.push([Bill.types[ele], el])
+            })
+        })
+
+    } else {
+        extractions.forEach((wheel, indx) => {
+            const numberWin = wheelNumber
+                                .map(num => wheel.includes(num))
+                                .reduce((acc, elem) => (elem) ? ++acc : acc, 0);
+
+            indexType.forEach(ele => {
+                if (numberWin >= ele+1) result.push([Bill.types[ele], indx])
+            })
+        })
+    };
+    return result
+};
+
+//transforms the result of the winnings of all tickets into an array of 10 strings where each is the
+//result of each wheel to be printed in the fake extraction table
+// - allWin = array, all wins from all tables
+// # return = array, examble ['','','','#2 Estratto','','','','','#1 Estratto #2 Estratto-Ambo','']
+function allWinToString (allWin) {
+    let result = [...Array(10)].map(_ => '');
+
+    allWin.forEach(wheel => {
+       if (wheel.length !== 1) {
+            let tmp = '';
+            wheel.forEach(el => {
+                if (Array.isArray(el)) {
+                    result[el[1]] += `${(tmp !== el[1]) ? ' #' + wheel.at(-1) : ''}${(tmp === el[1]) ? '-'+el[0] : ' '+ el[0]}`
+                    tmp = el[1];
+                }
+            })
+        }
+    })
+    return result
+};
+
+module.exports = {  fakeExtractNumber,
+                    inputAndCheck,
                     check,
                     printList,
                     printInline,
@@ -199,4 +261,6 @@ module.exports = {  inputAndCheck,
                     numberExtraction,
                     printFakeExtraction,
                     centerWord,
+                    checkWin,
+                    allWinToString
                  }
