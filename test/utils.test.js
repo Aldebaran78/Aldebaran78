@@ -31,8 +31,8 @@ describe('Print', () => {
     })
 
     it('showCompletedTicket', () => {
-        const ticket = [new Bill.Bill(5,['Bari','Milano'],['Ambo', 'Terno']), new Bill.Bill(10,['Firenze'],['Ambo', 'Terno', 'Cinquina'])]
-        expect(utils.showCompletedTicket(ticket)).toBe('Ticket #1 : 5 numbers played on the Bari,Milano wheel with Ambo,Terno\nTicket #2 : 10 numbers played on the Firenze wheel with Ambo,Terno,Cinquina\n');
+        const ticket = [new Bill.Bill(5,['Bari','Milano'],['Ambo', 'Terno'],[2,5]), new Bill.Bill(10,['Firenze'],['Ambo', 'Terno', 'Cinquina'], [1,5,1])]
+        expect(utils.showCompletedTicket(ticket)).toBe('Ticket #1 : 5 numbers played on the Bari,Milano wheel with Ambo € 2 ,Terno € 5\nTicket #2 : 10 numbers played on the Firenze wheel with Ambo € 1 ,Terno € 5 ,Cinquina € 1\n');
     })
 
     it('centerWord', () => {

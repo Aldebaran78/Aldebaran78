@@ -3,7 +3,7 @@ const Bill = require('../Bill')
 describe('Bill Class', () => {
 
     describe('Getter & Setter', () => {
-        const ticket = new Bill.Bill(8,['Bari'],['Ambo', 'Quaterna']);
+        const ticket = new Bill.Bill(8,['Bari'],['Ambo', 'Quaterna'],[5,2]);
 
         it('get numbers', () => {
             expect(ticket.numbers).toBe(8)
@@ -13,6 +13,9 @@ describe('Bill Class', () => {
         })
         it('get city', () => {
             expect(ticket.city).toEqual(['Bari'])
+        })
+        it('get prices', () => {
+            expect(ticket.prices).toEqual([5,2])
         })
         it('get generateNumber', () => {
             expect(Array.isArray(ticket.generateNumber)).toBeTruthy();
@@ -49,13 +52,13 @@ describe('Bill Class', () => {
         })
 
         it('set city with 10 city', () => {
-            ticket5 = new Bill.Bill(5,['Bari', 'Cagliari', 'Firenze', 'Genova', 'Milano', 'Napoli', 'Palermo', 'Roma', 'Torino', 'Venezia'],['Ambo', 'Quaterna']);
+            ticket5 = new Bill.Bill(5,['Bari', 'Cagliari', 'Firenze', 'Genova', 'Milano', 'Napoli', 'Palermo', 'Roma', 'Torino', 'Venezia'],['Ambo', 'Quaterna'],[5,2]);
             expect(ticket5.city).toEqual(['Tutte']) 
         })
 
         it('set type incorrectly named', () => {
             try{
-                ticket6 = new Bill.Bill(5,['Bari'],['Ambos', 'Quaterna']);
+                ticket6 = new Bill.Bill(5,['Bari'],['Ambos', 'Quaterna'],[5,2]);
             } catch (err) {
                 expect(err.message).toBe('Ambos,Quaterna is a invalid type, Bill instance not created\nAccepted parameters : Estratto-Ambo-Terno-Quaterna-Cinquina');
             }
@@ -84,19 +87,35 @@ describe('Bill Class', () => {
                 expect(err.message).toBe('Ambo is a invalid type: you cannot choose Ambo,Terno,Quaterna,Cinquina because you are playing only 1 numbers, Bill instance not created\nAccepted parameters : Estratto')
             }
         })
+
+        it('set prices', () => {
+            try{
+                ticket10 = new Bill.Bill(5,['Bari'],['Ambo','Terno'],[1,201]);
+            } catch (err) {
+                expect(err.message).toBe('1,201 is a invalid price, Bill instance not created\nAccepted parameters : from €1 to €200')
+            }
+            try{
+                ticket11 = new Bill.Bill(5,['Bari'],['Ambo','Terno'],[5]);
+            } catch (err) {
+                expect(err.message).toBe("5 is a invalid price, Bill instance not created\nInput doesn't contain the right number of elements")
+            }
+        })
     })
 
     describe('Print Method', () => {
         it('Check table before and after rnd numbers', () => {
-            ticket10 = new Bill.Bill(3,['Bari'],['Ambo']);
-            const printBefore = ticket10.print(6).slice(0,451);
-            const printAfter = ticket10.print(6).slice(464);
+            ticket12 = new Bill.Bill(3,['Bari'],['Ambo'],[5]);
+
+            const printBefore = ticket12.print(6).slice(0,573);
+            const printAfter = ticket12.print(6).slice(586);
             expect(printBefore).toBe(`+==========================================================+
-|                   LOTTO GAME TICKET #6                   |
+|               LOTTO GAME TICKET #6 **€ 5**               |
 +==========================================================+
 |                           Bari                           |
 +==========================================================+
 |                           Ambo                           |
++==========================================================+
+|                            €5                            |
 +==========================================================+
 |                       `);
             expect(printAfter).toBe(`                      |

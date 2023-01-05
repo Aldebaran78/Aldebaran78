@@ -14,9 +14,10 @@ But... let's start!
 2. [How many numbers](#nNumbers)
 3. [Wheels](#wheels)
 4. [Type of bet](#type)
-5. [More Tickets](#more)
-6. [Print tickets](#print)
-7. [Fake Extraction](#fake)
+5. [price amount played](#prices)
+6. [More Tickets](#more)
+7. [Print tickets](#print)
+8. [Fake Extraction](#fake)
 ---
 
 Choose how many ticket to play from 1 to 5 <a name="nTicket"></a>
@@ -107,7 +108,21 @@ What type of bet do you want to place?
  
 n) Next
 ```
-When you're ready press 'n' to generate on the second ticket if you have chosen more than 1. <a name="more"></a>
+Enter the amount you want to play for each type of win you have chosen <a name="prices"></a>
+```
+=================================================
+Estratto <> Ambo <> Terno <> Quaterna <> Cinquina
+=================================================
+
+Indicates the amount for each type of bet
+
+Estratto € 5
+Ambo € 5
+Terno € 2
+Quaterna € 2
+Cinquina € 1
+```
+When you're ready will be generated the second ticket if you have chosen more than 1. <a name="more"></a>
 
 At the top you will be shown the summary of the first ticket.
 

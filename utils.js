@@ -60,7 +60,8 @@ function printInline (arr) {
 // # return = string
 function showCompletedTicket (ticketArr) {
     return ticketArr.reduce((res, ticket, index) => {
-        return res += `Ticket #${index+1} : ${ticket.numbers} numbers played on the ${ticket.city} wheel with ${ticket.type}\n`
+        const typeAndMoney = ticket.type.map((el, index) => el + ' € ' + ticket.prices[index]).join(' ,')
+        return res += `Ticket #${index+1} : ${ticket.numbers} numbers played on the ${ticket.city} wheel with ${typeAndMoney}\n`
     }, '');
 };
 

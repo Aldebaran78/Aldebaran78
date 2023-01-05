@@ -45,7 +45,8 @@ function fillTickets (ticketNumber) {
         const number = chooseNumber();
         const wheel = choose(number, 'whell', i+1);
         const type = choose(number, 'type', i+1);
-        tickets.push(new Bill.Bill(number, wheel, type))
+        const price = prices(type, i+1);
+        tickets.push(new Bill.Bill(number, wheel, type, price))
     };
 
     console.clear();
@@ -77,7 +78,7 @@ function chooseNumber () {
 // - type = array with all type available
 // # return = array selected
 function choose (numbersPlayed, whellOrType, num, selected = [], cities = [...Bill.cities], type = [...Bill.types]) {
-    console.clear()
+    console.clear();
     console.log(utils.ticketTitle(num));
     console.log(utils.printInline(selected));
     let [accepted, list] = [[],''];
@@ -101,4 +102,18 @@ function choose (numbersPlayed, whellOrType, num, selected = [], cities = [...Bi
     else if (whellOrType === 'type') return utils.menageType(input, numbersPlayed, whellOrType, num, selected, cities, type, choose);
 };
 
+//
+function prices (type, num) {
+    console.clear();
+    console.log(utils.ticketTitle(num));
+    console.log(utils.printInline(type));
+    console.log('Indicates the amount for each type of bet\n');
+    const result = [];
+
+    type.forEach(el => {
+        const input = inputAndCheck(utils.arrayNumber(1,200), el + ' € ');
+        result.push(Number(input))
+    })
+    return result;
+}
 

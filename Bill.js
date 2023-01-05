@@ -8,12 +8,14 @@ class Bill {
     _numbers;
     _city;
     _type;
+    _prices;
     _generateNumber;
 
-    constructor (numbers, city, type) {
+    constructor (numbers, city, type, prices) {
         this.numbers = numbers;
         this.city = city;
         this.type = type;
+        this.prices = prices;
 
         this._generateNumber = this.#genNumber();
     };
@@ -65,6 +67,19 @@ class Bill {
 
     };
 
+    //
+    get prices () { return this._prices };
+    set prices (price) {
+        const [ priceMin, priceMax ] = [ 1, 200 ];
+
+        if (this.#checkInputArray(price) && price.length === this._type.length) {
+
+            if(price.every(el => typeof el === 'number' && el >= priceMin && el <= priceMax)) this._prices = price.map(el => Math.round(el));
+            else throw new Error (`${price} is a invalid price, Bill instance not created\nAccepted parameters : from €${priceMin} to €${priceMax}`)
+
+        } else throw new Error (`${price} is a invalid price, Bill instance not created\nInput doesn't contain the right number of elements`)
+    }
+
     //private function that checks if the input is an array and if it contains at least one element
     // # return = true or an exception is raised
     #checkInputArray (input) {
@@ -115,13 +130,14 @@ class Bill {
     // - ticketNumber = number, the ticket number to show in the title
     // # return = string
     print (ticketNumber) {
-        const title = 'LOTTO GAME TICKET #' + ticketNumber;
+        const title = `LOTTO GAME TICKET #${ticketNumber} **€ ${this._prices.reduce((acc, el) => acc + el)}**`;
         const wheel = this._city.join('  ');
         const type = this._type.join('  ');
+        const price = this._prices.reduce((string, el, index) => string + this.#centerWord(this._type[index].length+2, `€${el}`), '');
         const rndNumber = this._generateNumber.join(' - ');
         const lineWidth = 60;
 
-        return [title, wheel,type, rndNumber].map(el => {
+        return [title, wheel,type, price, rndNumber].map(el => {
             return `${this.#lineGenerator(lineWidth,'=')}\n|${this.#centerWord(lineWidth-2, el)}|`;
 
         }).join('\n') + '\n' + this.#lineGenerator(lineWidth,'=') + '\n\n'
