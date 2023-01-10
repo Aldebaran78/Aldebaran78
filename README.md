@@ -18,6 +18,7 @@ But... let's start!
 6. [More Tickets](#more)
 7. [Print tickets](#print)
 8. [Fake Extraction](#fake)
+9. [Total Win!](#money)
 ---
 
 Choose how many ticket to play from 1 to 5 <a name="nTicket"></a>
@@ -141,53 +142,66 @@ How many numbers do you want to play? ( form 1 to 10 )
 Once generated, they will all be printed on the monitor, an example below <a name="print"></a>
 ```
 +==========================================================+
-|                   LOTTO GAME TICKET #1                   |
+|                   LOTTO GAME TICKET #1 **€ 6**           |
 +==========================================================+
 |                 Firenze  Napoli  Milano                  |
 +==========================================================+
 |                     Terno  Cinquina                      |
++==========================================================+
+|                      € 5     € 1                         |
 +==========================================================+
 |                  35 - 52 - 69 - 73 - 27                  |
 +==========================================================+
 
 
 +==========================================================+
-|                   LOTTO GAME TICKET #2                   |
+|                   LOTTO GAME TICKET #2 **€ 1**           |
 +==========================================================+
 |                         Venezia                          |
 +==========================================================+
 |                         Cinquina                         |
++==========================================================+
+|                           € 1                            |
 +==========================================================+
 |      17 - 6 - 13 - 70 - 42 - 37 - 64 - 35 - 22 - 44      |
 +==========================================================+
 ```
 A simulated extraction of all wheels will also be generated. <a name="fake"></a>
 
-The table will indicate the winnings of your tickets: 
+The table indicates all the matches between your numbers and those generated. 
 
 #1, #2, etc.. is the number of your ticket and then the type of winnings made
 ```
-                FAKE EXTRACTIONS                          TICKET WIN                    
+                 FAKE EXTRACTIONS                          TICKET WIN                    
 +==========+==========================+==================================================+
-|   Bari   |  54 - 75 - 69 - 82 - 15  |                    #2 Estratto                   |
+|   Bari   |  10 - 25 - 73 - 30 - 40  |                   #1 1 Estratto                  |
 +==========+==========================+==================================================+
-| Cagliari |  15 - 82 - 43 - 81 - 57  |  #1 Estratto #2 Estratto-Ambo-Terno #3 Estratto  |
+| Cagliari |  22 - 36 - 15 - 40 - 39  |                                                  |
 +==========+==========================+==================================================+
-| Firenze  |  46 - 3 - 89 - 37 - 90   |                    #3 Estratto                   |
+| Firenze  |  62 - 63 - 55 - 40 - 20  |               #1 2 Estratto-1 Ambo               |
 +==========+==========================+==================================================+
-|  Genova  |  67 - 36 - 43 - 64 - 69  |                    #3 Estratto                   |
+|  Genova  |  10 - 17 - 86 - 61 - 82  |                   #1 1 Estratto                  |
 +==========+==========================+==================================================+
-|  Milano  |  17 - 83 - 18 - 35 - 76  |              #3 Estratto-Ambo-Terno              |
+|  Milano  |  34 - 65 - 31 - 48 - 32  |                                                  |
 +==========+==========================+==================================================+
-|  Napoli  |  84 - 27 - 36 - 59 - 4   |           #1 Estratto-Ambo #3 Estratto           |
+|  Napoli  |  1 - 64 - 47 - 19 - 85   |               #1 2 Estratto-1 Ambo               |
 +==========+==========================+==================================================+
-| Palermo  |  50 - 71 - 28 - 58 - 22  |                    #1 Estratto                   |
+| Palermo  |  17 - 48 - 57 - 60 - 80  |                   #1 1 Estratto                  |
 +==========+==========================+==================================================+
-|   Roma   |  58 - 65 - 42 - 71 - 69  |              #1 Estratto #3 Estratto             |
+|   Roma   |  11 - 40 - 67 - 51 - 15  |                                                  |
 +==========+==========================+==================================================+
-|  Torino  |  90 - 41 - 34 - 11 - 59  |                                                  |
+|  Torino  |  37 - 12 - 24 - 60 - 54  |                                                  |
 +==========+==========================+==================================================+
-| Venezia  |   2 - 48 - 6 - 34 - 43   |           #2 Estratto #3 Estratto-Ambo           |
+| Venezia  |  41 - 87 - 73 - 2 - 88   |                                                  |
 +==========+==========================+==================================================+
+```
+Finally the amounts won for each ticket, the totals won and the total invested are shown <a name="money"></a>
+```
+Total winnings already detaxed by 8%:
+
+TICKET #1 WIN € 4.1 - Paid for : 2 Estratto 1 Ambo  on Firenze
+
+Total winnings: € 4.1
+Total invested: € 12
 ```
 Good fun ! 😃

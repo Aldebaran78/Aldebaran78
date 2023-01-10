@@ -51,11 +51,21 @@ function fillTickets (ticketNumber) {
 
     console.clear();
     let allWin = [];
+    let totalInvested = 0;
     tickets.forEach((ticket, index) => {
         console.log(ticket.print(index+1));
-        allWin.push(utils.checkWin(ticket.generateNumber,ticket.city, ticket.type).concat(index+1));
+        allWin.push(utils.checkWin(ticket.generateNumber, ticket.city, ticket.type).concat(index+1));
+        totalInvested += ticket.prices.reduce((acc, el) => acc + el);
     });
-    console.log(utils.printFakeExtraction(allWin))
+    console.log(utils.printFakeExtraction(allWin));
+    console.log('Total winnings already detaxed by 8%:\n');
+    const totalMoneyWon = utils.moneyWon(allWin, tickets);
+
+    totalMoneyWon.forEach((money, index) => {
+        console.log(`TICKET #${index+1} WIN € ${money[0]} - Paid for : ${money[1]} on ${money[2]}`);
+    });
+    console.log(`\nTotal winnings: € ${totalMoneyWon.reduce((acc, el) => acc + el[0], 0)}`);
+    console.log(`Total invested: € ${totalInvested}`);
 };
 
 //ask for user input from 1 to 10
