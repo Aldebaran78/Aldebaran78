@@ -289,7 +289,8 @@ function moneyWon (allWin, tickets) {
             totalTicket += Number((Math.floor(wheelWon[0] * moltiplier[indexType] * priceValue / divider *100) /100).toFixed(2));
         });
         const price = totalTicket/numberWheel;
-        result.push([ Number((price - price * 8 / 100).toFixed(2)), stringWin, Bill.cities[win[0][2]] ]);
+        const cityWin = stringWin === '' ? '' : Bill.cities[win[0][2]];
+        result.push([ Number((price - price * 8 / 100).toFixed(2)), stringWin, cityWin ]);
     });
 
     return result;

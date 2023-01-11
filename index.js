@@ -1,4 +1,5 @@
 const prompt = require('prompt-sync')({sigint: true});
+const fs = require('fs');
 const Bill = require('./Bill');
 const utils = require('./utils');
 
@@ -52,17 +53,20 @@ function fillTickets (ticketNumber) {
     console.clear();
     let allWin = [];
     let totalInvested = 0;
+    let ticketString = '';
     tickets.forEach((ticket, index) => {
-        console.log(ticket.print(index+1));
+        ticketString += ticket.print(index+1);
         allWin.push(utils.checkWin(ticket.generateNumber, ticket.city, ticket.type).concat(index+1));
         totalInvested += ticket.prices.reduce((acc, el) => acc + el);
     });
+    fs.writeFileSync('ticket.txt', ticketString);
+    console.log(ticketString);
     console.log(utils.printFakeExtraction(allWin));
     console.log('Total winnings already detaxed by 8%:\n');
     const totalMoneyWon = utils.moneyWon(allWin, tickets);
 
     totalMoneyWon.forEach((money, index) => {
-        console.log(`TICKET #${index+1} WIN € ${money[0]} - Paid for : ${money[1]} on ${money[2]}`);
+        console.log(`TICKET #${index+1} WIN € ${money[0]}${money[1] ? ' - Paid for : '+ money[1]+ 'on ' + money[2]: ''}`);
     });
     console.log(`\nTotal winnings: € ${totalMoneyWon.reduce((acc, el) => acc + el[0], 0)}`);
     console.log(`Total invested: € ${totalInvested}`);
