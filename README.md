@@ -231,6 +231,6 @@ press 'y' to start again <a name="repeat"></a>
 ```
 Do you want to play again?
 
-y or n > y
+y or n > n
 ```
 Good fun ! 😃
