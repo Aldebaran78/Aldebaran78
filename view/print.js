@@ -66,7 +66,7 @@ function centerWord (lineWidth, word) {
 // - extraction = the extraction instances object
 // # return = string
 function printFakeExtraction (extraction) {
-    let result = `\n${centerWord(39, `FAKE EXTRACTIONS n° ${extraction.numExtraction} del ${extraction.date}`)}\n`;
+    let result = `\n${centerWord(39, `FAKE EXTRACTIONS n° ${extraction.numExtraction} del ${extraction._date}`)}\n`;
 
     for (const prop in extraction.getAll) {
         result += `+${separator(10, '=')}+${separator(26, '=')}+\n`;
