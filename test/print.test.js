@@ -13,7 +13,7 @@ ticket2._generateNumber = [10,51,29,68,90];
 
 const extractions = {
     numExtraction: 23,
-    date: '05/10/2024',
+    _date: '05/10/2024',
     getAll: {
         Bari: [80,26,57,29,31],
         Cagliari: [10,43,49,32,50],
