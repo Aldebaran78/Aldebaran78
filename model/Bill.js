@@ -50,7 +50,6 @@ class Bill {
     set city (arr) {
         
         if (ClassUtils.checkInputArray(arr)) this._city = arr.filter(city => Bill.cities.includes(city));
-        else throw new Error (`Input ${arr} isn't an array or it is empty, Bill instance not created`);
 
         if (!ClassUtils.compareArray(this._city, arr)) throw new Error (`${arr} is a invalid city, Bill instance not created\nAccepted parameters : ${Bill.cities.join('-')}`)
         
@@ -71,12 +70,10 @@ class Bill {
 
         if (this._numbers < 5) { removed = typesCopy.splice(this._numbers) };
 
-        if (ClassUtils.checkInputArray(arr)) {
-            this._type = arr.filter(type => {
-                if (removed.includes(type)) message = `: you cannot choose ${removed} because you are playing only ${this._numbers} numbers`;
-                if (typesCopy.includes(type)) return true
-            });
-        } else throw new Error (`Input ${arr} isn't an array or it is empty, Bill instance not created`);
+        if (ClassUtils.checkInputArray(arr)) this._type = arr.filter(type => {
+            if (removed.includes(type)) message = `: you cannot choose ${removed} because you are playing only ${this._numbers} numbers`;
+            if (typesCopy.includes(type)) return true
+        });
 
         if (!ClassUtils.compareArray(this._type, arr)) throw new Error (`${arr} is a invalid type${message}, Bill instance not created\nAccepted parameters : ${typesCopy.join('-')}`)
 
